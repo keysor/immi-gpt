@@ -22,7 +22,7 @@ def ask():
 
     try:
         response = openai.Completion.create(
-            engine="davinci-002",
+            engine="gpt-3.5-turbo",
             prompt=question,
             max_tokens=100,
         )
