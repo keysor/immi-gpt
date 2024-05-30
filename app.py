@@ -22,7 +22,7 @@ def ask():
 
     try:
         response =openai.ChatCompletion.create(
-            engine="gpt-3.5-turbo",
+            engine="gpt-3.5-turbo-instruct",
             prompt=question,
             max_tokens=100,
         )
