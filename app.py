@@ -19,10 +19,10 @@ def ask():
 
     try:
         response = openai.Completion.create(
-            engine="text-davinci-003",
-            prompt=question,
-            max_tokens=100
-        )
+        engine="text-davinci",
+        prompt=question,
+        max_tokens=100
+            )
         answer = response.choices[0].text.strip()
         return jsonify({'answer': answer})
     except Exception as e:
