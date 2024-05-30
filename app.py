@@ -8,7 +8,7 @@ load_dotenv()  # Load environment variables from .env file if running locally
 app = Flask(__name__)
 
 # Set your OpenAI API key from an environment variable for security
-openai.api_key = os.getenv('OPENAI_API_KEY')
+openai.api_key = os.environ.get('OPENAI_API_KEY')
 
 @app.route('/ask', methods=['GET'])
 def ask():
