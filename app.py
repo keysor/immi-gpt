@@ -17,6 +17,11 @@ def ask():
         return jsonify({'error': 'No question provided'}), 400
 
     try:
+        # Your OpenAI API call and response processing code here
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+    try:
         response = openai.Completion.create(
             engine="text-davinci-003",
             prompt=question,
