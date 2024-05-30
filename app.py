@@ -19,7 +19,7 @@ def ask():
 
     try:
         response = openai.Completion.create(
-        engine="text-davinci",
+        engine="davinci-002",
         prompt=question,
         max_tokens=100
             )
