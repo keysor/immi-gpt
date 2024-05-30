@@ -3,9 +3,10 @@ import openai
 import os
 from dotenv import load_dotenv
 
-load_dotenv()  # Load environment variables from .env file
-
 app = Flask(__name__)
+
+# Load environment variables from .env file
+load_dotenv()
 
 # Set your OpenAI API key from an environment variable for security
 openai.api_key = os.environ.get('OPENAI_API_KEY')
@@ -15,11 +16,6 @@ def ask():
     question = request.args.get('question')
     if not question:
         return jsonify({'error': 'No question provided'}), 400
-
-    try:
-        # Your OpenAI API call and response processing code here
-    except Exception as e:
-        return jsonify({'error': str(e)}), 500
 
     try:
         response = openai.Completion.create(
