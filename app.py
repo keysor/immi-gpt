@@ -21,7 +21,7 @@ def ask():
         return jsonify({'error': 'No question provided'}), 400
 
     try:
-        response = openai.Completion.create(
+        response =openai.ChatCompletion.create(
             engine="gpt-3.5-turbo",
             prompt=question,
             max_tokens=100,
