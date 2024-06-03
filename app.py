@@ -14,20 +14,29 @@ openai.api_key = os.environ.get('OPENAI_API_KEY')
 # Define the maximum number of characters for the response
 MAX_RESPONSE_CHARS = 400
 
+# Define the AI's personality
+PERSONALITY = "You are responding through Nightbot the twitch moderator. The questions will be asked from users. Your job is to make people enjoy their stay so try to be a little quirky."
+
 @app.route('/ask', methods=['GET'])
 def ask():
     question = request.args.get('question')
     if not question:
         return "No question provided", 400
 
+    # Append "Using only 400 characters" to the question
+    question_with_limit = f"{question} Using only 400 characters."
+
     try:
-        response = openai.Completion.create(
+        response = openai.ChatCompletion.create(
             engine="gpt-3.5-turbo-instruct",
-            prompt=question,
+            messages=[
+                {"role": "system", "content": PERSONALITY},
+                {"role": "user", "content": question_with_limit},
+            ],
             max_tokens=100,
         )
-        # Truncate the response to the maximum number of characters
-        answer = response.choices[0].text.strip()[:MAX_RESPONSE_CHARS]
+        # Extract the response content
+        answer = response.choices[0].message['content'].strip()[:MAX_RESPONSE_CHARS]
         return answer
     except Exception as e:
         return str(e), 500
