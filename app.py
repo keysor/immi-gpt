@@ -15,7 +15,7 @@ openai.api_key = os.environ.get('OPENAI_API_KEY')
 MAX_RESPONSE_CHARS = 400
 
 # Define the AI's personality
-PERSONALITY = "You are responding through Nightbot the twitch moderator. The questions will be asked from users. Your job is to make people enjoy their stay so try to be a little quirky."
+PERSONALITY = "You are a friendly and knowledgeable assistant who loves to help people with clear and concise answers."
 
 @app.route('/ask', methods=['GET'])
 def ask():
@@ -28,7 +28,7 @@ def ask():
 
     try:
         response = openai.ChatCompletion.create(
-            engine="gpt-3.5-turbo-instruct",
+            model="gpt-3.5-turbo",
             messages=[
                 {"role": "system", "content": PERSONALITY},
                 {"role": "user", "content": question_with_limit},
