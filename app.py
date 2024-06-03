@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, jsonify
 import openai
 import os
 from dotenv import load_dotenv
@@ -18,19 +18,19 @@ MAX_RESPONSE_CHARS = 400
 def ask():
     question = request.args.get('question')
     if not question:
-        return "No question provided", 400
+        return jsonify({'error': 'No question provided'}), 400
 
     try:
         response = openai.Completion.create(
-            model="gpt-3.5-turbo",  # Use the correct model name
+            engine="gpt-3.5-turbo-instruct",
             prompt=question,
             max_tokens=100,
         )
         # Truncate the response to the maximum number of characters
         answer = response.choices[0].text.strip()[:MAX_RESPONSE_CHARS]
-        return answer
+        return jsonify({'answer': answer})
     except Exception as e:
-        return str(e), 500
+        return jsonify({'error': str(e)}), 500
 
 if __name__ == '__main__':
     # Use Gunicorn as the production server
